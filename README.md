@@ -102,7 +102,7 @@ mvn test
 
 ### Diagrama de la Solución
 
-![MyImages](src/main/resources/images/DiagramSolution.png)
+![MyImages](src/main/resources/images/Diagram.png)
 
 #### Diagrama de Clases UML
 
