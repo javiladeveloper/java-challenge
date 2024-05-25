@@ -1,5 +1,6 @@
 package com.example.user_registration_api.controller;
 
+import com.example.user_registration_api.dto.UsuarioDto;
 import com.example.user_registration_api.model.Usuario;
 import com.example.user_registration_api.service.UsuarioService;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType; // Añadir esta importación
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -42,7 +43,7 @@ class UsuarioControllerTest {
         Usuario usuario = new Usuario();
         usuario.setEmail("juan@rodriguez.org");
 
-        when(usuarioService.register(any(Usuario.class))).thenReturn(usuario);
+        when(usuarioService.register(any(UsuarioDto.class))).thenReturn(usuario);
 
         mockMvc.perform(post("/api/usuarios/registro")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -53,7 +54,7 @@ class UsuarioControllerTest {
 
     @Test
     void register_emailAlreadyExists() throws Exception {
-        when(usuarioService.register(any(Usuario.class))).thenThrow(new Exception("El correo ya registrado"));
+        when(usuarioService.register(any(UsuarioDto.class))).thenThrow(new Exception("El correo ya registrado"));
 
         mockMvc.perform(post("/api/usuarios/registro")
                         .contentType(MediaType.APPLICATION_JSON)

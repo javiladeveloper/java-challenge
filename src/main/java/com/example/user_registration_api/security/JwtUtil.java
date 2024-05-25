@@ -1,6 +1,7 @@
 package com.example.user_registration_api.security;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,10 @@ import java.util.Date;
 public class JwtUtil {
 
     private String secret = "secretKey";
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
 
     public String generateToken(String email) {
         return Jwts.builder()
@@ -26,7 +31,11 @@ public class JwtUtil {
     }
 
     public boolean isTokenExpired(String token) {
-        return extractAllClaims(token).getExpiration().before(new Date());
+        try {
+            return extractAllClaims(token).getExpiration().before(new Date());
+        } catch (ExpiredJwtException e) {
+            return true;
+        }
     }
 
     public String extractEmail(String token) {

@@ -75,6 +75,24 @@ La aplicación se ejecutará en http://localhost:8080.
 - Respuestas:
   - 200 OK: Listado de usuarios. 
 
+### Swagger-UI
+- URL: /swagger-ui/
+- Método: GET
+- Respuestas:
+  - 200 ok: Api Documentation
+
+### Api-docs
+- URL: /v2/api-docs
+- Método: GET
+- Respuestas:
+  - 200 ok: Api Docs
+
+### Base de Datos
+- URL: /h2-console/
+- Método: GET
+- Respuestas:
+  - 200 ok: Login BD
+
 ## Pruebas
 Las pruebas unitarias están escritas utilizando JUnit y Mockito. Para ejecutar las pruebas, usa el siguiente comando:
 
@@ -82,13 +100,9 @@ Las pruebas unitarias están escritas utilizando JUnit y Mockito. Para ejecutar 
 mvn test
 ```
 
-## Diagrama
-El siguiente diagrama muestra la estructura del proyecto y las relaciones entre las clases principales.
-
-
 ### Diagrama de la Solución
 
-Aquí tienes un diagrama que muestra la estructura del proyecto y las relaciones entre las clases principales. Puedes crear este diagrama utilizando herramientas como draw.io, Lucidchart, o cualquier herramienta de diagramación que prefieras.
+![MyImages](./images/DiagramSolution.png)
 
 #### Diagrama de Clases UML
 

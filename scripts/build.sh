@@ -4,7 +4,7 @@
 cd "$(dirname "$0")/.."
 
 # Compilar y empaquetar la aplicación
-mvn clean install
+./mvnw clean install
 
 # Verificar si el build fue exitoso
 if [ $? -eq 0 ]; then

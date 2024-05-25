@@ -1,6 +1,9 @@
 package com.example.user_registration_api.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -12,9 +15,17 @@ public class Usuario {
     @GeneratedValue
     private UUID id;
 
+    @NotBlank
     private String name;
+
+    @Email
+    @NotBlank
     private String email;
+
+    @NotBlank
+    @Size(min = 6, max = 100)
     private String password;
+
     private Date created;
     private Date modified;
     private Date lastLogin;
@@ -38,14 +49,6 @@ public class Usuario {
     }
 
     // Getters and Setters
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

@@ -1,5 +1,6 @@
 package com.example.user_registration_api.service;
 
+import com.example.user_registration_api.dto.UsuarioDto;
 import com.example.user_registration_api.model.Usuario;
 import com.example.user_registration_api.repository.UsuarioRepository;
 import com.example.user_registration_api.security.JwtUtil;
@@ -26,21 +27,30 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Usuario register(Usuario usuario) throws Exception {
-        logger.info("Attempting to register user with email: {}", usuario.getEmail());
+    public Usuario register(UsuarioDto usuarioDto) throws Exception {
+        logger.info("Attempting to register user with email: {}", usuarioDto.getEmail());
 
-        if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
-            logger.warn("User with email {} is already registered", usuario.getEmail());
+        if (usuarioRepository.findByEmail(usuarioDto.getEmail()).isPresent()) {
+            logger.warn("User with email {} is already registered", usuarioDto.getEmail());
             throw new Exception("El correo ya registrado");
         }
 
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword())); // Codificar la contraseña
+        Usuario usuario = convertToEntity(usuarioDto);
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         usuario.setToken(jwtUtil.generateToken(usuario.getEmail()));
         Usuario savedUsuario = usuarioRepository.save(usuario);
         logger.info("User registered successfully with email: {}", usuario.getEmail());
         return savedUsuario;
     }
 
+    private Usuario convertToEntity(UsuarioDto usuarioDto) {
+        Usuario usuario = new Usuario();
+        usuario.setName(usuarioDto.getName());
+        usuario.setEmail(usuarioDto.getEmail());
+        usuario.setPassword(usuarioDto.getPassword());
+        usuario.setPhones(usuarioDto.getPhones());
+        return usuario;
+    }
 
     public Optional<Usuario> findByEmail(String email) {
         logger.debug("Finding user by email: {}", email);

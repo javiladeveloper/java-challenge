@@ -18,7 +18,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/usuarios/registro").permitAll() // Permitir acceso sin autenticación para registrar usuarios
                 .antMatchers("/api/usuarios/**").permitAll() // Permitir acceso sin autenticación a los endpoints GET
-                .anyRequest().authenticated();
+                .antMatchers("/h2-console/**").permitAll() // Permitir acceso sin autenticación a la consola H2
+                .antMatchers("/swagger-ui/**").permitAll() // Permitir acceso sin autenticación al swagger
+                .antMatchers("/swagger-resources/**").permitAll() // Permitir acceso sin autenticación a los recursos de swagger
+                .antMatchers("/v2/api-docs").permitAll() // Permitir acceso sin autenticación a la documentación de la API
+                .anyRequest().authenticated()
+                .and()
+                .headers().frameOptions().sameOrigin(); // Permitir que la consola H2 se cargue correctamente en un iframe
     }
 
     @Bean
